@@ -28,7 +28,7 @@ extension ItemHelperWidgetEx on ItemHelperWidget {
       [
         first ?? const SizedBox.shrink(),
         span.inRow,
-        first ?? const SizedBox.shrink(),
+        second ?? const SizedBox.shrink(),
       ].toRow(
           reversed: reversed,
           mainAxisSize: MainAxisSize.min,
@@ -39,7 +39,7 @@ extension ItemHelperWidgetEx on ItemHelperWidget {
       [
         first ?? const SizedBox.shrink(),
         span.inColumn,
-        first ?? const SizedBox.shrink(),
+        second ?? const SizedBox.shrink(),
       ].toColumn(
           reversed: reversed,
           mainAxisSize: MainAxisSize.min,

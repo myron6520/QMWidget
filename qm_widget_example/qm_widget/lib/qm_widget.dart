@@ -3,6 +3,9 @@ library qm_widget;
 export 'package:qm_widget/pub/extensions/extensions.dart';
 export 'package:qm_widget/pub/app.dart';
 export 'package:qm_widget/pub/widget_default_builder.dart';
+export 'package:qm_widget/pub/qm.dart';
+export 'package:qm_widget/pub/qm_color.dart';
+export 'package:qm_widget/pub/tools/user_defaults.dart';
 
 export 'package:qm_widget/button/base_button.dart';
 export 'package:qm_widget/button/text_btn.dart';

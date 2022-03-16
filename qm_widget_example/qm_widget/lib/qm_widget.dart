@@ -14,6 +14,7 @@ export 'package:qm_widget/button/theme_button.dart';
 export 'package:qm_widget/widgets/code_widget.dart';
 export 'package:qm_widget/widgets/ref_status_widget.dart';
 export 'package:qm_widget/widgets/simple_input_widget.dart';
+export 'package:qm_widget/widgets/toast.dart';
 
 export 'package:qm_widget/helper/item_helper.dart';
 

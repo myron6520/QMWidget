@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_overrides
+// ignore_for_file: unnecessary_overrides, prefer_initializing_formals
 
 import 'package:flutter/material.dart';
 import 'package:qm_widget/pub/extensions/extensions.dart';
@@ -19,10 +19,10 @@ class NetResp<T> {
       String msg = "通讯异常",
       Map<dynamic, dynamic>? originalData,
       bool Function(int code, String msg)? respCheckFunc}) {
-    data = data;
-    code = code;
-    msg = msg;
-    originalData = originalData;
+    this.data = data;
+    this.code = code;
+    this.msg = msg;
+    this.originalData = originalData;
     if (respCheckFunc != null) this.respCheckFunc = respCheckFunc;
   }
 }

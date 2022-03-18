@@ -16,7 +16,7 @@ class NetResp<T> {
   NetResp(
       {T? data,
       int code = -1,
-      String msg = "通讯异常",
+      String msg = "network error",
       Map<dynamic, dynamic>? originalData,
       bool Function(int code, String msg)? respCheckFunc}) {
     this.data = data;
@@ -30,11 +30,11 @@ class NetResp<T> {
 enum _RespStatus { ready, loading, ok, empty, error }
 
 class RespStatus extends Object {
-  static RespStatus ready = RespStatus(_RespStatus.ready, msg: "就绪");
-  static RespStatus loading = RespStatus(_RespStatus.loading, msg: "加载中");
-  static RespStatus ok = RespStatus(_RespStatus.ok, msg: "成功");
-  static RespStatus empty = RespStatus(_RespStatus.empty, msg: "暂无数据");
-  static RespStatus error = RespStatus(_RespStatus.error, msg: "网络异常");
+  static RespStatus ready = RespStatus(_RespStatus.ready, msg: "ready");
+  static RespStatus loading = RespStatus(_RespStatus.loading, msg: "loading");
+  static RespStatus ok = RespStatus(_RespStatus.ok, msg: "success");
+  static RespStatus empty = RespStatus(_RespStatus.empty, msg: "no data");
+  static RespStatus error = RespStatus(_RespStatus.error, msg: "network error");
   final _RespStatus status;
   String msg = "";
   int code = 0;

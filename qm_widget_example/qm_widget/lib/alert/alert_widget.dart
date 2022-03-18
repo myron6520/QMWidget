@@ -18,20 +18,25 @@ class AlertWidget extends StatelessWidget {
       String cancel = AlertDefines.STR_CANCEL,
       String submit = AlertDefines.STR_CONFIRM,
       bool dismissCancel = false,
+      bool dismissSubmit = false,
       bool barrierDismissible = false,
       void Function()? onCancel,
       bool Function()? willCancel,
       void Function()? onSubmit,
       bool Function()? willSubmit}) {
-    var actions = [
-      AlertAction.doneAction(title: submit)
-        ..action = () {
-          if (willSubmit?.call() ?? true) {
-            Navigator.of(context).pop(AlertDefines.RES_CONFIRM);
-            onSubmit?.call();
-          }
-        },
-    ];
+    List<AlertAction> actions = [];
+    if (!dismissSubmit) {
+      actions.insert(
+        0,
+        AlertAction.doneAction(title: submit)
+          ..action = () {
+            if (willSubmit?.call() ?? true) {
+              Navigator.of(context).pop(AlertDefines.RES_CONFIRM);
+              onSubmit?.call();
+            }
+          },
+      );
+    }
     if (!dismissCancel) {
       actions.insert(
           0,

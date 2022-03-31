@@ -1,10 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:qm_widget/bean/net_resp.dart';
-import 'package:qm_widget/net/net_client.dart';
 import 'package:qm_widget/net/net_request.dart';
+import 'client/net_client.dart'
+    if (dart.library.html) "client/net_client_web.dart"
+    if (dart.library.io) "client/net_client_io.dart";
 
 class NetAction {
-  static NetRequest client = NetRequest(NetClient());
+  static NetRequest client = NetRequest(netClient);
   static Future<NetResp<T>> post<T>(
     String url, {
     required dynamic params,

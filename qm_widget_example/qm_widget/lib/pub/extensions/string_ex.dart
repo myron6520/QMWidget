@@ -36,6 +36,7 @@ extension StringEx on String {
         textAlign: textAlign,
         maxLines: maxLines,
         overflow: overflow,
+        textScaleFactor: 1,
         style: style ??
             TextStyle(
                 decoration: decoration ?? TextDecoration.none,

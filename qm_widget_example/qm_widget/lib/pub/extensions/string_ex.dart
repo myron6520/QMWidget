@@ -24,6 +24,7 @@ extension StringEx on String {
           double fontSize = 16,
           double? height = 1.4,
           TextAlign? textAlign,
+          double? textScaleFactor,
           TextDecoration? decoration,
           int? maxLines,
           TextOverflow overflow = TextOverflow.ellipsis,
@@ -36,7 +37,7 @@ extension StringEx on String {
         textAlign: textAlign,
         maxLines: maxLines,
         overflow: overflow,
-        textScaleFactor: 1,
+        textScaleFactor: textScaleFactor,
         style: style ??
             TextStyle(
                 decoration: decoration ?? TextDecoration.none,

@@ -4,6 +4,19 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+class BannerController extends ChangeNotifier {
+  bool autoScroll = true;
+  void startAutoScroll() {
+    autoScroll = true;
+    notifyListeners();
+  }
+
+  void stopAutoScroll() {
+    autoScroll = false;
+    notifyListeners();
+  }
+}
+
 class BannerWidget extends StatefulWidget {
   BannerWidget({
     Key? key,
@@ -12,12 +25,18 @@ class BannerWidget extends StatefulWidget {
     this.scrollDirection,
     this.onChanged,
     this.viewportFraction = 1,
+    this.showSeconds = 5,
+    this.transitionDuration = 500,
+    this.controller,
   }) : super(key: key);
   final Widget Function(BuildContext context, int index) itemBuilder;
   final void Function(int index)? onChanged;
   final int itemCount;
   final Axis? scrollDirection;
   final double viewportFraction;
+  final int showSeconds;
+  final int transitionDuration;
+  final BannerController? controller;
 
   @override
   _BannerWidgetState createState() => _BannerWidgetState();
@@ -34,7 +53,7 @@ class _BannerWidgetState extends State<BannerWidget> {
               child: widget.itemBuilder.call(context, index % widget.itemCount),
               onPointerDown: (_) => listener?.cancel(),
               onPointerMove: (_) => listener?.cancel(),
-              onPointerUp: (_) => autoScrollToNext(),
+              onPointerUp: (_) => tryToAutoScrollToNext(),
             ),
           )
         : Container();
@@ -43,29 +62,44 @@ class _BannerWidgetState extends State<BannerWidget> {
   @override
   void initState() {
     super.initState();
+    controller.addListener(bannerControllerChanged);
     int itemCount = widget.itemCount;
     if (itemCount > 0) {
       int index = totalCount ~/ 2;
       index = (index ~/ itemCount) * itemCount;
       controller = PageController(
           initialPage: index, viewportFraction: widget.viewportFraction);
-      autoScrollToNext();
+      if (bannerController.autoScroll) {
+        tryToAutoScrollToNext();
+      }
     }
   }
 
   late PageController controller;
   int totalCount = 10000;
   StreamSubscription<void>? listener;
+  late BannerController bannerController =
+      widget.controller ?? BannerController();
+
+  void bannerControllerChanged() {
+    if (bannerController.autoScroll) {
+      tryToAutoScrollToNext();
+    } else {
+      listener?.cancel();
+    }
+  }
 
   @override
   void dispose() {
     controller.dispose();
     listener?.cancel();
+    controller.removeListener(bannerControllerChanged);
     super.dispose();
   }
 
-  void autoScrollToNext() {
-    Future future = Future.delayed(Duration(seconds: 2));
+  void tryToAutoScrollToNext() {
+    if (!bannerController.autoScroll) return;
+    Future future = Future.delayed(Duration(seconds: widget.showSeconds));
     listener = future.asStream().listen((_) => scrollToNextPage());
   }
 
@@ -80,9 +114,10 @@ class _BannerWidgetState extends State<BannerWidget> {
       controller.jumpToPage(index);
     } else {
       controller.animateToPage(index,
-          duration: Duration(milliseconds: 250), curve: Curves.linear);
+          duration: Duration(milliseconds: widget.transitionDuration),
+          curve: Curves.linear);
     }
     widget.onChanged?.call(index % widget.itemCount);
-    autoScrollToNext();
+    tryToAutoScrollToNext();
   }
 }

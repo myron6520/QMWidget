@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors_in_immutables, prefer_final_fields
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:qm_widget/pub/qm.dart';
@@ -27,6 +29,7 @@ class SimpleInputWidget extends StatefulWidget {
   final SimpleInputType type;
   final bool Function()? getCodeFun;
   final Widget? Function()? titleBuilder;
+  final TextAlign textAlign;
 
   final void Function(String)? onChanged;
   final void Function(String)? onSubmitted;
@@ -53,6 +56,7 @@ class SimpleInputWidget extends StatefulWidget {
     this.titleBuilder,
     this.bottom,
     this.maxLines,
+    this.textAlign = TextAlign.left,
   }) : super(key: key);
 
   @override
@@ -125,6 +129,7 @@ class _SimpleInputWidgetState extends State<SimpleInputWidget> {
         onSubmitted: widget.onSubmitted,
         onChanged: widget.onChanged,
         maxLines: widget.maxLines,
+        textAlign: widget.textAlign,
         decoration: InputDecoration(
           enabledBorder: InputBorder.none,
           focusedBorder: InputBorder.none,

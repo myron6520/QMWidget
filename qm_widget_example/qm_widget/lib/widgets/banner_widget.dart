@@ -64,7 +64,7 @@ class _BannerWidgetState extends State<BannerWidget> {
   @override
   void initState() {
     super.initState();
-    controller.addListener(bannerControllerChanged);
+    bannerController.addListener(bannerControllerChanged);
     int itemCount = widget.itemCount;
     if (itemCount > 0) {
       int index = totalCount ~/ 2;
@@ -95,7 +95,7 @@ class _BannerWidgetState extends State<BannerWidget> {
   void dispose() {
     controller.dispose();
     listener?.cancel();
-    controller.removeListener(bannerControllerChanged);
+    bannerController.removeListener(bannerControllerChanged);
     super.dispose();
   }
 

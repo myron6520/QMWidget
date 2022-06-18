@@ -15,6 +15,8 @@ class BannerController extends ChangeNotifier {
     autoScroll = false;
     notifyListeners();
   }
+
+  BannerController({this.autoScroll = true});
 }
 
 class BannerWidget extends StatefulWidget {

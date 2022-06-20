@@ -84,11 +84,8 @@ class _BannerWidgetState extends State<BannerWidget> {
       widget.controller ?? BannerController();
 
   void bannerControllerChanged() {
-    if (bannerController.autoScroll) {
-      tryToAutoScrollToNext();
-    } else {
-      listener?.cancel();
-    }
+    listener?.cancel();
+    tryToAutoScrollToNext();
   }
 
   @override
